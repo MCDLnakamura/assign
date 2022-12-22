@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+    <title>総人口推移グラフ</title>
+    <link rel="stylesheet" type="text/css" href="./index.css" >
+  </head>
+  <body>
+    <header>
+      <h1 class="headline">
+          <span class="top">総人口推移グラフ</span>
+      </h1>
+    </header>
+    <div id="app">
+      <!-- {{ prefectures }}<br> -->
+
+      <!-- チェックボックス -->
+      <div class="panel">
+        <a v-for="(pre, i) in pre_lis">
+          <input type="checkbox" v-model="pre_code[i]">
+          {{pre.name}}
+        </a>
+      </div>
+
+      <!-- 選んだものを表示 -->
+      <div class="panel">
+        <div v-for="(pre, i) in pre_lis">
+          <div v-if ="pre_code[i]">
+            {{pre.name}}
+            {{ population }}
+          </div>
+        </div>
+      </div>
+
+      <!-- {{selected}}<br> -->
+      <!-- {{selected}}<br> -->
+      <!-- <div>pre_code_l === {{pre_code_l}}</div> -->
+      <!-- {{pre_code}}<br> -->
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./index.js"></script>
+  </body>
+  </html>
+  
+  <!-- <label for="福岡">福岡</label>
+  <input type="checkbox" id=40 value="fukuoka" v-model="pre_code"/><br>
+  <input type="number" id="fukuoka" value=40 v-model="pre_code"/><br>
+  <label for="佐賀">佐賀</label>
+  <input type="checkbox" id=41 value="saga" v-model="pre_code" /><br>
+  <input type="text" v-model="pre_num" /><br> -->

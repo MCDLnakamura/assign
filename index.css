@@ -1,0 +1,51 @@
+body {
+    background-color: rgb(191, 191, 219);
+    color: rgba(0, 0, 0);
+    }
+
+header {
+    padding: 0px;
+    margin: 0 ;
+    text-align: center;
+    color: black;
+    } 
+
+/* 段落の最初で字下げする */
+/* p{ */
+    /* margin-left: 1rem; */
+    /* text-indent: 1rem; */
+    /* } */
+
+
+/* aタグで作ったリンクの色を変えない */
+/* a{ */
+    /* color:inherit; */
+    /* text-decoration: none; */
+    /* text-decoration: underline; */
+    /* } */
+
+/* 図の[上]、[右]、[下]、[左]の順に余白を指定 */
+/* img{ */
+    /* padding: 3px 10px 3px 10px;     */
+/* } */
+
+
+/* .top{ */
+    /* vertical-align: middle; */
+    /* } */
+
+/* div { */
+    /* max-width: 1500px; */
+    /* margin-left: auto; */
+    /* margin-right: auto; */
+/* } */
+/* .starter-template { */
+    /* padding: 10px 10px 10px 10px;    [上]、[右]、[下]、[左]の順に余白を指定 */
+    /* margin:  10px 10px 10px 10px;    [上]、[右]、[下]、[左]の順に余白を指定 */
+    /* background-color: rgb(100, 100, 100); */
+/* } */
+/* a{ */
+    /* color:inherit; */
+    /* text-decoration: none; */
+    /* text-decoration: underline; */
+/* } */
