@@ -10,6 +10,14 @@ header {
     color: black;
     } 
 
+main{
+    width: 95%;
+    margin-right: auto;
+    margin-left: auto;
+}
+span{
+    display: inline-block; /* インラインブロック化 */
+}
 /* 段落の最初で字下げする */
 /* p{ */
     /* margin-left: 1rem; */

@@ -4,6 +4,11 @@ new Vue({
     return {
       prefectures: null,
       population: null,
+      labels : [],
+      data: [],
+      items:[],
+      // pre_num: null,
+      // parent_url: null,
       pre_code:[
         false,false,false,false,false,false,false,false,false,false,
         false,false,false,false,false,false,false,false,false,false,
@@ -11,64 +16,77 @@ new Vue({
         false,false,false,false,false,false,false,false,false,false,
         false,false,false,false,false,false,false,
       ],
-      pre_lis:[
-        {id:1, name:"北海道"},
-        {id:2, name:"北海道"},
-        {id:3, name:"北海道"},
-        {id:4, name:"北海道"},
-        {id:5, name:"北海道"},
-        {id:6, name:"北海道"},
-        {id:7, name:"北海道"},
-        {id:8, name:"北海道"},
-        {id:9, name:"北海道"},
-        {id:10, name:"北海道"},
-        {id:11, name:"北海道"},
-        {id:12, name:"北海道"},
-        {id:13, name:"北海道"},
-        {id:14, name:"北海道"},
-        {id:15, name:"北海道"},
-        {id:16, name:"北海道"},
-        {id:17, name:"北海道"},
-        {id:18, name:"北海道"},
-        {id:19, name:"北海道"},
-        {id:20, name:"北海道"},
-        {id:21, name:"北海道"},
-        {id:22, name:"北海道"},
-        {id:23, name:"北海道"},
-        {id:24, name:"北海道"},
-        {id:25, name:"北海道"},
-        {id:26, name:"北海道"},
-        {id:27, name:"北海道"},
-        {id:28, name:"北海道"},
-        {id:29, name:"北海道"},
-        {id:30, name:"北海道"},
-        {id:31, name:"北海道"},
-        {id:32, name:"北海道"},
-        {id:33, name:"北海道"},
-        {id:34, name:"北海道"},
-        {id:35, name:"北海道"},
-        {id:36, name:"北海道"},
-        {id:37, name:"北海道"},
-        {id:38, name:"北海道"},
-        {id:39, name:"北海道"},
-        {id:40, name:"福岡"},
-        {id:41, name:"佐賀"},
-        {id:42, name:"長崎県"},
-        {id:43, name:"熊本県"},
-        {id:44, name:"大分県"},
-        {id:45, name:"宮崎県"},
-        {id:46, name:"鹿児島県"},
-        {id:47, name:"沖縄県"},
-      ]
+    }
+  },
+  methods:{
+    displayGraph: function(){
+      var ctx = document.getElementById('myChart').getContext('2d');
+      var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: this.labels,
+          datasets: [{
+              label: '四半期の売上数の遷移',
+              data: this.data
+          }]
+        }
+      });
     }
   },
   mounted () {
     var prefectures_url = 'https://opendata.resas-portal.go.jp/api/v1/prefectures';
     axios.get(prefectures_url, { headers: { 'X-API-KEY': 'WkpOalLsffxSUyR1OF527TvhpNbOmzZDjZAwUuzt' } }) 
-    .then(response => (this.prefectures = response.data.result));
-    // var pre_num=18
-    var population_url = ' https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?cityCode=-&prefCode='+pre_code;
-    axios.get(population_url, { headers: { 'X-API-KEY': 'WkpOalLsffxSUyR1OF527TvhpNbOmzZDjZAwUuzt' } }) 
-    .then(response => (this.population = JSON.stringify(response.data)));
+    .then(response => (this.prefectures = response.data.result))
+    .catch((error) => console.log(error));
+    // pre.id => (this.pre_num);
+    // v-bind:pre_num=pre.id;
+    // var population_url = ' https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?cityCode=-&prefCode='+pre_num;
+    
+    axios.get('https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?cityCode=-&prefCode=13', { headers: { 'X-API-KEY': 'WkpOalLsffxSUyR1OF527TvhpNbOmzZDjZAwUuzt' } }).then(response => (this.population = JSON.stringify(response.data)));
+    // var pre_num=13 ;
+    // var parent_url ='https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?cityCode=-&prefCode=';
+    // var api_key='WkpOalLsffxSUyR1OF527TvhpNbOmzZDjZAwUuzt';
+    // var population_url = parent_url+pre_num;
+    // axios.get(population_url, { headers: { 'X-API-KEY': api_key } }).then(response => (this.population = JSON.stringify(response.data)));
+
+    axios.get('https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?cityCode=-&prefCode=13', { headers: { 'X-API-KEY': 'WkpOalLsffxSUyR1OF527TvhpNbOmzZDjZAwUuzt' } }).then(response =>{
+  
+      this.data = response.data.year(sale=>sale.number);
+      this.labels = response.data.value(sale=>sale.month);
+  
+      this.displayGraph();
+  
+    })
   },
+
+
+  //   mounted: function(){
+  //     var ctx = document.getElementById('myChart').getContext('2d');
+  //     var myChart = new Chart(ctx, {
+  //     type: 'line',
+  //     data: {
+  //         labels: [
+  //           '1960','1965','1970','1975','1980','1985','1990','1995',
+  //           '2000','2005','2010','2015','2020','2025','2030','2035','2040','2045'
+  //         ],
+  //         datasets: [{
+  //           label: '四半期の売上数の遷移',
+  //           data: this.data
+  //       }],
+  //     }
+  //   });
+  // }
+  
 });
+
+
+//   datasets: [
+//     {
+//       label: 'A県',
+//       data: [120,190,34,58,20,190,34,58,20,190,34,58,20,190,34,58,8,8]
+//   },
+//     {
+//       label: 'B県',
+//       data: [120,190,34,338,20,190,34,58,20,190,34,58,20,190,34,58,8,8]
+//   }
+// ]
