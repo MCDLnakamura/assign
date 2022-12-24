@@ -7,6 +7,7 @@ new Vue({
       labels : [],
       data: [],
       items:[],
+      vale:[],
       // pre_num: null,
       // parent_url: null,
       pre_code:[
@@ -26,7 +27,7 @@ new Vue({
       data: {
           labels: this.labels,
           datasets: [{
-              label: '四半期の売上数の遷移',
+              label: '人口推移グラフ',
               data: this.data
           }]
         }
@@ -42,21 +43,24 @@ new Vue({
     // v-bind:pre_num=pre.id;
     // var population_url = ' https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?cityCode=-&prefCode='+pre_num;
     
-    axios.get('https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?cityCode=-&prefCode=13', { headers: { 'X-API-KEY': 'WkpOalLsffxSUyR1OF527TvhpNbOmzZDjZAwUuzt' } }).then(response => (this.population = JSON.stringify(response.data)));
+    axios.get('https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?cityCode=-&prefCode=13', { headers: { 'X-API-KEY': 'WkpOalLsffxSUyR1OF527TvhpNbOmzZDjZAwUuzt' } })
+    .then(response => (this.population = response.data.result.data.find(
+      (item) => (item.label === '総人口')
+    )));
     // var pre_num=13 ;
     // var parent_url ='https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?cityCode=-&prefCode=';
     // var api_key='WkpOalLsffxSUyR1OF527TvhpNbOmzZDjZAwUuzt';
     // var population_url = parent_url+pre_num;
     // axios.get(population_url, { headers: { 'X-API-KEY': api_key } }).then(response => (this.population = JSON.stringify(response.data)));
 
-    axios.get('https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?cityCode=-&prefCode=13', { headers: { 'X-API-KEY': 'WkpOalLsffxSUyR1OF527TvhpNbOmzZDjZAwUuzt' } }).then(response =>{
+    // axios.get('https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?cityCode=-&prefCode=13', { headers: { 'X-API-KEY': 'WkpOalLsffxSUyR1OF527TvhpNbOmzZDjZAwUuzt' } }).then(response =>{
   
-      this.data = response.data.year(sale=>sale.number);
-      this.labels = response.data.value(sale=>sale.month);
+    //   this.data = response.data.year(sale=>sale.number);
+    //   this.labels = response.data.value(sale=>sale.month);
   
-      this.displayGraph();
+    //   this.displayGraph();
   
-    })
+    // })
   },
 
 

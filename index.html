@@ -33,19 +33,21 @@
           <div v-if ="pre_code[i]">
             <!-- <script>this.pre_num.push('pre.id')</script> -->
             <div v-bind:pre_num="item.id"></div>
-            <!-- {{pre.id}} -->
-            <!-- {{pre_num}} -->
             {{i+1}}
             {{item.prefName}}<br>
-            <!-- {{ population}}<br> -->
+            <div v-for="item in population.data">
+              {{item.year}}年
+              {{item.value}}人<br>
+            </div>
           </div>
         </div>
       </div>
 
+
       <!-- 図を描く -->
-      <div id="app" style="width:100%">
+      <!-- <div id="app" style="width:100%">
         <canvas id="myChart"></canvas>
-      </div>
+      </div> -->
 
       <!-- {{pre_num}} -->
       <!-- {{selected}}<br> -->
