@@ -4,12 +4,6 @@ new Vue({
     return {
       prefectures: null,
       population: null,
-      labels : [],
-      data: [],
-      items:[],
-      vale:[],
-      // pre_num: null,
-      // parent_url: null,
       pre_code:[
         false,false,false,false,false,false,false,false,false,false,
         false,false,false,false,false,false,false,false,false,false,
@@ -34,6 +28,15 @@ new Vue({
       });
     }
   },
+  methods:{
+    rev_population: function(pre_num){
+      axios.get('https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?cityCode=-&prefCode='+pre_num, { headers: { 'X-API-KEY': 'WkpOalLsffxSUyR1OF527TvhpNbOmzZDjZAwUuzt' } })
+      .then(response => (this.population = response.data.result.data.find(
+        (item) => (item.label === '総人口')
+      )));
+      if (this.population) {return this.population.data}
+    }
+  },
   mounted () {
     var prefectures_url = 'https://opendata.resas-portal.go.jp/api/v1/prefectures';
     axios.get(prefectures_url, { headers: { 'X-API-KEY': 'WkpOalLsffxSUyR1OF527TvhpNbOmzZDjZAwUuzt' } }) 
@@ -43,10 +46,6 @@ new Vue({
     // v-bind:pre_num=pre.id;
     // var population_url = ' https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?cityCode=-&prefCode='+pre_num;
     
-    axios.get('https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?cityCode=-&prefCode=13', { headers: { 'X-API-KEY': 'WkpOalLsffxSUyR1OF527TvhpNbOmzZDjZAwUuzt' } })
-    .then(response => (this.population = response.data.result.data.find(
-      (item) => (item.label === '総人口')
-    )));
     // var pre_num=13 ;
     // var parent_url ='https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear?cityCode=-&prefCode=';
     // var api_key='WkpOalLsffxSUyR1OF527TvhpNbOmzZDjZAwUuzt';
