@@ -14,6 +14,7 @@ new Vue({
       y_label:[
         '1960','1965','1970','1975','1980','1985','1990','1995','2000','2005','2010','2015','2020','2025','2030','2035','2040','2045'
       ],
+      data:[],
     }
   },
   methods:{
@@ -24,10 +25,15 @@ new Vue({
         (item) => (item.label === '総人口')
         )));
       if (this.population) {return this.population.data}
-    }
     },
-    
-    methods: {
+    rev_data: function(pre_num){
+      var input=this.rev_population(pre_num)
+      this.data=[];
+      for(item in input){
+        this.data.push(item.value)
+      }
+      if (this.data) {return this.data}
+    },
     clear: function(){
       if (myChart) {
         this.myChart.destroy();
@@ -58,7 +64,8 @@ new Vue({
             {
               label: '北海道',
               fill: false,
-              data: [10000,20000,30000,40000,50000,60000,70000,80000,90000,1000000,10000,20000,30000,40000,50000,60000,70000,800000,],
+              // data: [10000,20000,30000,40000,50000,60000,70000,80000,90000,1000000,10000,20000,30000,40000,50000,60000,70000,800000,],
+              data: this.rev_data(hoge),
             }]
           },
           options: {

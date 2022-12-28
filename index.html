@@ -22,12 +22,14 @@
         <a v-for="(item, i) in prefectures":key="i">
           <span>
             <input :id="i" type="checkbox" v-model="sel_pre_code" :value="item.prefCode">
+            <!-- <input :id="i" type="checkbox" v-model="displayGraph" :value="item.prefCode"> -->
             {{ item.prefName }}
           </span>
         </a>
       </div>
 
-      {{rev_population}}
+      <!-- {{rev_population(13)}} -->
+      {{rev_data(1)}}<br>
       {{sel_pre_code}}
       <!-- 図を描く -->
       <!-- <canvas id="myChart" ></canvas> -->
