@@ -2,3 +2,12 @@
 
 
 { "data": { "statusCode": "429", "message": "429. Too many requests.", "description": "" }, "status": 200, "statusText": "", "headers": { "content-length": "73", "content-type": "application/json;charset=UTF-8" }, "config": { "transformRequest": {}, "transformResponse": {}, "timeout": 0, "xsrfCookieName": "XSRF-TOKEN", "xsrfHeaderName": "X-XSRF-TOKEN", "maxContentLength": -1, "headers": { "Accept": "application/json, text/plain, */*", "X-API-KEY": "WkpOalLsffxSUyR1OF527TvhpNbOmzZDjZAwUuzt" }, "method": "get", "url": "https://opendata.resas-portal.go.jp/api/v1/prefectures" }, "request": {} }
+
+
+
+ 
+from requests import Session
+s = Session()
+s.cert = 'TP6LHy98HM4VjlC6POePIl6FUIDlpSvj9TmA0QF8'
+s.cert = 'key'
+r = s.get('https://opendata.resas-portal.go.jp/api/v1/prefectures')
