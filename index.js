@@ -106,16 +106,17 @@ new Vue({
       var ctx = document.getElementById('myChart').getContext('2d');
         var dataset=[]
         for (let hoge=0; hoge<48; hoge++){
-        console.log(hoge)
           if (this.sel_pre_code.includes(hoge)){
+            var rgba='rgba('+String(Math.floor(Math.random()*255))+', '+String(Math.floor(Math.random()*255))+', '+String(Math.floor(Math.random()*255))+', 1)'
             dataset.push({
               label: this.name[hoge-1],
               fill: false,
-              data: this.data[hoge-1]
+              data: this.data[hoge-1],
+              borderColor: rgba,
+              backgroundColor: rgba, 
             })
           }
         }
-        console.log(dataset)
           this.myChart = new Chart(ctx, {
             type: 'line',
             data: {
