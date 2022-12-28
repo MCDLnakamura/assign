@@ -10,6 +10,10 @@ new Vue({
       // year: [],
       // value: [],
       sel_pre_code:[],
+      myChart: null,
+      y_label:[
+        '1960','1965','1970','1975','1980','1985','1990','1995','2000','2005','2010','2015','2020','2025','2030','2035','2040','2045'
+      ],
     }
   },
   methods:{
@@ -22,76 +26,70 @@ new Vue({
       if (this.population) {return this.population.data}
     }
     },
-
-
-    // methods:{
-    //   displayGraph: function(){
-    //     var labels = ['2019年1月', '2019年2月', '2019年3月', '2019年4月'];
-    //     var data = [120, 190, 34, 58];
-    //     var ctx = document.getElementById('myChart').getContext('2d');
-    //     var myChart = new Chart(ctx, {
-    //     type: 'line',
-    //     data: {
-    //         labels: labels,
-    //         datasets: [{
-    //             label: '四半期の売上数の遷移',
-    //             data: data
-    //         }]
-    //       }
-    //     });
-    //   }
-    // },
-    
-
-    
-    
     
     methods: {
+    clear: function(){
+      if (myChart) {
+        this.myChart.destroy();
+        var ctx = document.getElementById('myChart').getContext('2d');
+        this.myChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: this.y_label,
+            datasets: [{label: '都道府県',data: [],}]
+          },
+          options: {
+              scales: {
+                yAxes: [{ticks: {min: 0,suggestedMax: 1000000,}}]
+              }
+            },})
+
+      }
+    },
     displayGraph:function(){
       var ctx = document.getElementById('myChart').getContext('2d');
-      var myChart = new Chart(ctx, {
+      var hoge=1
+      if(this.sel_pre_code.includes(hoge) ){
+      this.myChart = new Chart(ctx, {
       type: 'line',
-      data: {
-          labels: [
-                   '1960','1965','1970','1975','1980','1985','1990','1995','2000','2005','2010','2015','2020','2025','2030','2035','2040','2045'
-                ],
-          datasets: [{
-              label: '人口推移グラフ',
+        data: {
+          labels: this.y_label,
+          datasets: [           
+            {
+              label: '北海道',
               fill: false,
-              data: [],
-          }]
-        },
-      options: {
-        scales: {
-            yAxes: [{ticks: {min: 0,suggestedMax: 1000000,}}]
-        }
+              data: [10000,20000,30000,40000,50000,60000,70000,80000,90000,1000000,10000,20000,30000,40000,50000,60000,70000,800000,],
+            }]
+          },
+          options: {
+            scales: {
+              yAxes: [{ticks: {min: 0,suggestedMax: 1000000,}}]
+            }
+          }
+        });
       }
-      });
     }},
-    mounted () {
+
+    
+    mounted:
+    function(){
       var ctx = document.getElementById('myChart').getContext('2d');
-      var myChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-          labels: [
-                   '1960','1965','1970','1975','1980','1985','1990','1995','2000','2005','2010','2015','2020','2025','2030','2035','2040','2045'
-                ],
-          datasets: [{
-              label: '人口推移グラフ',
-              fill: false,
-              data: [],
-          }]
+      this.myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: this.y_label,
+          datasets: [{label: '都道府県',data: [],} ]
         },
-      options: {
-        scales: {
-          yAxes: [{ticks: {min: 0,suggestedMax: 1000000,}}]
-        }
-      }
-      });
-      var prefectures_url = 'https://opendata.resas-portal.go.jp/api/v1/prefectures';
-      axios.get(prefectures_url, { headers: { 'X-API-KEY': this.api_key } }) 
-      .then(response => (this.prefectures = response.data.result));
-    },
+        options: {
+            scales: {
+              yAxes: [{ticks: {min: 0,suggestedMax: 1000000,}}]
+            }
+          }
+        });
+        var prefectures_url = 'https://opendata.resas-portal.go.jp/api/v1/prefectures';
+        axios.get(prefectures_url, { headers: { 'X-API-KEY': this.api_key } }) 
+        .then(response => (this.prefectures = response.data.result));
+      },
 
 
   });
