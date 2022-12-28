@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
-    <title>総人口推移グラフ</title>
+    <title>人口推移グラフ</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <link rel="stylesheet" type="text/css" href="./index.css" >
@@ -11,7 +11,7 @@
   <body>
     <header>
       <h1 class="headline">
-          <span class="top">総人口推移グラフ</span>
+          <span class="top">人口推移グラフ</span>
       </h1>
     </header>
     <main>
@@ -19,37 +19,21 @@
 
       <!-- チェックボックス -->
       <div class="panel">
-        <a v-for="(item, i) in prefectures">
+        <a v-for="(item, i) in prefectures":key="i">
           <span>
-            <input type="checkbox" v-model="pre_code[i]">
+            <input :id="i" type="checkbox" v-model="sel_pre_code" :value="item.prefCode">
             {{ item.prefName }}
           </span>
         </a>
       </div>
 
-      <!-- 選んだものを表示 -->
-      <div class="panel">
-        <div v-for="(item, i) in prefectures">
-          <div v-if ="pre_code[i]">
-            <div v-bind:pre_num="item.id"></div>
-            {{i+1}}
-            {{item.prefName}}<br>
-            <!-- {{rev_population(13)}}<br> -->
-            <!-- {{rev_population(i)}}<br> -->
-            <!-- <p>{{ population }}</p> -->
-            <div v-for="item in rev_population(i)">
-              {{item.year}}年
-              {{item.value}}人<br>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
       <!-- 図を描く -->
-      <!-- <div id="app" style="width:100%">
-        <canvas id="myChart"></canvas>
-      </div> -->
+      <!-- <canvas id="myChart" ></canvas> -->
+      <p><button @click="displayGraph">グラフ表示</button></p>
+      <canvas id="myChart" ></canvas>
+      <!-- <canvas id="displayGraph" ></canvas> -->
+
+
 
       <!-- {{pre_num}} -->
       <!-- {{selected}}<br> -->
@@ -60,6 +44,7 @@
     </main>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/axios@0.19.2/dist/axios.min.js"></script>     -->
     <script src="./index.js"></script>
   </body>
   </html>
